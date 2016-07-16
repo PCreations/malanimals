@@ -10,7 +10,7 @@ class AnimalTests(APITestCase):
         """
         Ensure we can create a new animal object.
         """
-        url = reverse('animal-list')
+        url = reverse('animals:list')
         data = {'name': 'A dog'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -24,7 +24,7 @@ class AnimalTests(APITestCase):
         representation
         """
         animal = Animal.objects.create(name='A cat')
-        url = reverse('animal-detail', kwargs={'id': animal.pk})
+        url = reverse('animals:detail', kwargs={'pk': animal.pk})
         data = {'name': 'A dog'}
         response = self.client.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -36,9 +36,9 @@ class AnimalTests(APITestCase):
         Ensure we can delete an animal object.
         """
         animal = Animal.objects.create(name='A dog')
-        url = reverse('animal-detail', kwargs={'id': animal.pk})
+        url = reverse('animals:detail', kwargs={'pk': animal.pk})
         response = self.client.delete(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Animal.objects.count(), 0)
 
     def test_animal_detail(self):
@@ -46,7 +46,7 @@ class AnimalTests(APITestCase):
         Ensure we can get the an animal object representation
         """
         animal = Animal.objects.create(name='A dog')
-        url = reverse('animal-detail', kwargs={'id': animal.pk})
+        url = reverse('animals:detail', kwargs={'pk': animal.pk})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, {'id': animal.pk, 'name': 'A dog'})
@@ -57,7 +57,7 @@ class AnimalTests(APITestCase):
         """
         a1 = Animal.objects.create(name='A dog')
         a2 = Animal.objects.create(name='A cat')
-        url = reverse('animal-list')
+        url = reverse('animals:list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, [
