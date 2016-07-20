@@ -8,3 +8,4 @@ DATABASES['default'] = dj_database_url.config()
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 ALLOWED_HOSTS = [".herokuapp.com"]
+CORS_ORIGIN_ALLOW_ALL = True
