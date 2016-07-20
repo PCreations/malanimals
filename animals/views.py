@@ -7,7 +7,7 @@ from rest_framework.generics import (
 
 
 class AnimalList(ListCreateAPIView):
-    queryset = Animal.objects.all()
+    queryset = Animal.objects.all().order_by('-pk')
     serializer_class = AnimalSerializer
 
 

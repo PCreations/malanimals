@@ -1,0 +1,1 @@
+web: gunicorn malanimals.wsgi --log-file -
