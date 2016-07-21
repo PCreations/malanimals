@@ -2,8 +2,8 @@
 
  - `pip install virtualenv`
  - `virtualenv venv`
- - Open the `venv/bin/activate`
- - add at the end of the files, export some env variables by writing the following lines :
+ - Open the `venv/bin/activate` file
+ - Export some env variables at the end of the file :
    - `export DJANGO_SETTINGS_MODULE='malanimals.local_settings'`
    - `export MALANIMALS_SECRET_KEY='some_string_key'
    - `export MALANIMALS_DEBUG=1`
@@ -11,6 +11,11 @@
  - `pip install -r requirements.txt`
  - `python manage.py migrate`
  - `python manage.py runserver localhost:8000`
+
+**Mananement command**
+You can run `python manage.py stresstest` to add 1000 animals in the database in order to test the front-end consumming this API. This command take one of two possible arguments:
+ - `--total` : followed by the total number of animals you want to add : `python manage.py stresstest --total=10000`
+ - `--reset` : removed all animals from database : `python manage.py stresstest --reset`
 
  **Configuration**
 
@@ -25,3 +30,5 @@ You might to edit the `malanimals/local_settings.py` file to set different confi
  - `heroku config:set MALANIMALS_DEBUG=0`
  - `heroku config:set DISABLE_COLLECTSTATIC=1`
  - `git push heroku master && heroku run "python manage.py migrate"`
+
+ You can then toy with the management command stated above, you'll just need to to run them inside an `heroku run` command : `heroku run "python manage.py stresstest"`
